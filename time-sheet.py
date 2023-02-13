@@ -11,14 +11,14 @@ driver.get ("https://ban8sso.pima.edu/ssomanager/c/SSB?pkg=bwpktais.P_SelectTime
 
 #Logging into MyPima
 uname = driver.find_element ("id", "username")
-uname.send_keys("") #input username credentials
+uname.send_keys("jmaier1") #input username credentials
 pswd = driver.find_element ("id", "password")
-pswd.send_keys("") #input password credntials
+pswd.send_keys("Azkaban7760") #input password credntials
 driver.find_element("name", "_eventId_proceed").click()
 
 #Pausing script for DUO
 #WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "Time Sheet")))
-time.sleep(10)
+time.sleep(30)
 
 #Script proceeds with time sheet edit
-driver.find_element("Time Sheet").click()
+driver.find_element(By.XPATH, "//input[@type='submit']").click
