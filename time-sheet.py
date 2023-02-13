@@ -11,14 +11,27 @@ driver.get ("https://ban8sso.pima.edu/ssomanager/c/SSB?pkg=bwpktais.P_SelectTime
 
 #Logging into MyPima
 uname = driver.find_element ("id", "username")
-uname.send_keys("jmaier1") #input username credentials
 pswd = driver.find_element ("id", "password")
-pswd.send_keys("Azkaban7760") #input password credntials
+
+uname.send_keys("") #input username credentials
+pswd.send_keys("") #input password credentials
+
 driver.find_element("name", "_eventId_proceed").click()
 
 #Pausing script for DUO
-#WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "Time Sheet")))
-time.sleep(30)
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable(("id", "trust-browser-button"))).click()
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//input[@value='Time Sheet']"))).click()
 
-#Script proceeds with time sheet edit
-driver.find_element(By.XPATH, "//input[@type='submit']").click
+#Pause code to click on day to start editing time sheet
+WebDriverWait(driver, 10).until(EC.presenceofElementLocated(("name", "TimeIn")))
+
+timein = driver.find_element("XPATH", "/html/body/div[3]/form/table[2]/tbody/tr[2]/td[1]/input")
+lunchout = driver.find_element("XPATH", "/html/body/div[3]/form/table[2]/tbody/tr[2]/td[3]/input")
+lunchoutAM = driver.find_element("XPATH", "/html/body/div[3]/form/table[2]/tbody/tr[2]/td[4]/select").click()
+lunchin = driver.find_element("XPATH", "/html/body/div[3]/form/table[2]/tbody/tr[2]/td[3]/input")
+lunchinAM = driver.find_element("XPATH", "/html/body/div[3]/form/table[2]/tbody/tr[2]/td[3]/input").click()
+timeout =
+
+timein.send_keys("9:00")
+
+#/html/body/div[3]/form/table[2]/tbody/tr/td/input
