@@ -42,9 +42,17 @@ thursday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[
 friday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[12]").text
 saturday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[6]").text
 
+#workdays = blank array
+#for(i=6;i<12;i++){
+#    workDay = browser.find_element (By.XPATH, f"/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[{i}]").text
+#workdays += workDay
+#}
+
+
 day = input('What days do you work? ')
 
-firststartday = (day.split()[0])
+firstStartDay = (day.split()[0])
+#firstStartDay = (workdays[0].split()[1])
 
 browser.find_element(By.XPATH, "//a[@title='Enter Hours for Hourly Pay for ' + str(firststartday)]").click
 
