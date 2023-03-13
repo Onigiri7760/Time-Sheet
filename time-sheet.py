@@ -26,21 +26,21 @@ browser.find_element("name", "_eventId_proceed").click()
 WebDriverWait(driver=browser, timeout=15).until(expected.element_to_be_clickable(("id", "trust-browser-button"))).click()
 WebDriverWait(driver=browser, timeout=15).until(expected.element_to_be_clickable((By.XPATH, "//input[@value='Time Sheet']"))).click()
 
-WebDriverWait(driver=browser, timeout=15).until(expected.presence_of_element_located((By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[3]/td")))
+WebDriverWait(driver=browser, timeout=15).until(expected.presence_of_element_located((By.XPATH, "/html/body/div[3]/table/tbody/tr[3]/td")))
 
-#currentweek = driver.find_element(By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[3]/td").text
+#currentweek = driver.find_element(By.XPATH, "/html/body/div[3]/table/tbody/tr[3]/td").text
 
 #Start editing time sheet
 #print(currentweek)
 
 #print(datetime.date(currentweek).weekday())
 
-monday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[8]").text
-tuesday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[9]").text
-wednesday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[10]").text
-thursday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[11]").text
-friday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[12]").text
-saturday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[6]").text
+#monday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[8]").text
+#tuesday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[9]").text
+#wednesday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[10]").text
+#thursday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[11]").text
+#friday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[12]").text
+#saturday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[6]").text
 
 #workdays = blank array
 #for(i=6;i<12;i++){
@@ -48,13 +48,15 @@ saturday = browser.find_element (By.XPATH, "/html/body/div[3]/table[2]/tbody/tr[
 #workdays += workDay
 #}
 
+for x in range(6, 13):
+    workDay = browser.find_element (By.XPATH, f"/html/body/div[3]/table[2]/tbody/tr[5]/td/form/table/tbody/tr/td[(x)").text
+print(workDay)
+#day = input('What days do you work? ')
 
-day = input('What days do you work? ')
-
-firstStartDay = (day.split()[0])
+#firstStartDay = (day.split()[0])
 #firstStartDay = (workdays[0].split()[1])
 
-browser.find_element(By.XPATH, "//a[@title='Enter Hours for Hourly Pay for ' + str(firststartday)]").click
+#browser.find_element(By.XPATH, "//a[@title='Enter Hours for Hourly Pay for ' + str(firststartday)]").click
 
 
 #timein = browser.find_element("XPATH", "/html/body/div[3]/form/table[2]/tbody/tr[2]/td[1]/input")
