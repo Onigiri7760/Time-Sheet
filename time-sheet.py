@@ -8,6 +8,7 @@ browser = webdriver.Chrome("chromedriver")
 import time
 from datetime import datetime
 
+
 #Pulling up MyPima website
 browser.get ("https://ban8sso.pima.edu/ssomanager/c/SSB?pkg=bwpktais.P_SelectTimeSheetRoll")
 
@@ -34,8 +35,26 @@ workDay = [browser.find_element (By.XPATH, f"/html/body/div[3]/table/tbody/tr[5]
     for j in range(6, 13)
     for x in [j]]
 print(workDay)
-#day = input('What days do you work? ')
 
+# remove newline character from each element in workDay
+workDay = [day.replace('\n', ' ') for day in workDay]
+
+# ask the user for a weekday
+weekday_input = input('What days do you work? ')
+
+weekday_list = weekday_input.split()
+
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+
+# find the closest match to the user input in the workDay list
+for weekday in weekday_list:
+    matches = process.extract(weekday_input, workDay, scorer=lambda s1, s2: fuzz.token_set_ratio(s1[:3], s2[:3]))
+    closest_match = next((match for match in matches if match[1] >= 70), None)
+    if closest_match is not None:
+        print(closest_match[0])
+    else:
+        print("Invalid weekday.")
 #firstStartDay = (day.split()[0])
 #firstStartDay = (workdays[0].split()[1])
 
