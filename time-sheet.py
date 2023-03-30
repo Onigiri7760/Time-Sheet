@@ -1,18 +1,19 @@
-#Setting up selenium for chrome
+#Import necessary libraries
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
-browser = webdriver.Chrome("chromedriver")
 import time
 from datetime import datetime
 
+#Setting up Selenium for Chrome
+browser = webdriver.Chrome("chromedriver")
 
-#Pulling up MyPima website
+#Accessing MyPima website
 browser.get ("https://ban8sso.pima.edu/ssomanager/c/SSB?pkg=bwpktais.P_SelectTimeSheetRoll")
 
-#Logging into MyPima
+#Loggin to MyPima
 usernameelement = browser.find_element ("id", "username")
 passwordelement = browser.find_element ("id", "password")
 username = input('Pima Username:')
@@ -30,31 +31,35 @@ WebDriverWait(driver=browser, timeout=15).until(expected.element_to_be_clickable
 WebDriverWait(driver=browser, timeout=15).until(expected.presence_of_element_located((By.XPATH, "/html/body/div[3]/table/tbody/tr[3]/td")))
 
 
-
-workDay = [browser.find_element (By.XPATH, f"/html/body/div[3]/table/tbody/tr[5]/td/form/table/tbody/tr/td[{x}]").text
+#Gather dates for the current week
+workdays = [browser.find_element (By.XPATH, f"/html/body/div[3]/table/tbody/tr[5]/td/form/table/tbody/tr/td[{x}]").text
     for j in range(6, 13)
     for x in [j]]
-print(workDay)
 
-# remove newline character from each element in workDay
-workDay = [day.replace('\n', ' ') for day in workDay]
+#Remove newline character from each element in workdays
+workdays = [day.replace('\n', ' ') for day in workdays]
+for workday in workdays:
+    # Convert the workday string to a datetime object
+    date_obj = datetime.strptime(workday, '%A %b %d, %Y')
+    # Convert the datetime object to element format
+    formatted_date = date_obj.strftime('%A %d-%b-%Y').replace(date_obj.strftime('%b'), date_obj.strftime('%b').upper())
+    print(formatted_date)
 
-# ask the user for a weekday
-weekday_input = input('What days do you work? ')
+#Ask the user for a weekdays
+weekday_user_input = input('What days do you work? ')
+weekdays = [day.strip().lower() for day in weekday_user_input.split(',')]
 
-weekday_list = weekday_input.split()
+#Find the corresponding weekday for each user input weekday
 
-from fuzzywuzzy import fuzz
-from fuzzywuzzy import process
-
-# find the closest match to the user input in the workDay list
-for weekday in weekday_list:
-    matches = process.extract(weekday_input, workDay, scorer=lambda s1, s2: fuzz.token_set_ratio(s1[:3], s2[:3]))
-    closest_match = next((match for match in matches if match[1] >= 70), None)
-    if closest_match is not None:
-        print(closest_match[0])
+for weekday in weekdays:
+    weekday_index = next((i for i, day in enumerate(workdays) if weekday in day.lower()), None)
+    if weekday_index is not None:
+     #print the corresponding weekday from the workDay list
+        print(workdays[weekday_index])
     else:
         print("Invalid weekday.")
+
+
 #firstStartDay = (day.split()[0])
 #firstStartDay = (workdays[0].split()[1])
 
