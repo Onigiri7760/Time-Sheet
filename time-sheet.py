@@ -13,7 +13,7 @@ browser = webdriver.Chrome("chromedriver")
 #Accessing MyPima website
 browser.get ("https://ban8sso.pima.edu/ssomanager/c/SSB?pkg=bwpktais.P_SelectTimeSheetRoll")
 
-#Loggin to MyPima
+#Login to MyPima
 usernameelement = browser.find_element ("id", "username")
 passwordelement = browser.find_element ("id", "password")
 username = input('Pima Username:')
@@ -43,14 +43,12 @@ for workday in workdays:
     date_obj = datetime.strptime(workday, '%A %b %d, %Y')
     # Convert the datetime object to element format
     formatted_date = date_obj.strftime('%A %d-%b-%Y').replace(date_obj.strftime('%b'), date_obj.strftime('%b').upper())
-    print(formatted_date)
 
 #Ask the user for a weekdays
-weekday_user_input = input('What days do you work? ')
+weekday_user_input = input('What days do you work? (Seperate with commas) ')
 weekdays = [day.strip().lower() for day in weekday_user_input.split(',')]
 
 #Find the corresponding weekday for each user input weekday
-
 for weekday in weekdays:
     weekday_index = next((i for i, day in enumerate(workdays) if weekday in day.lower()), None)
     if weekday_index is not None:
@@ -60,10 +58,9 @@ for weekday in weekdays:
         print("Invalid weekday.")
 
 
-#firstStartDay = (day.split()[0])
-#firstStartDay = (workdays[0].split()[1])
+FirstStartDay = (weekday_user_input.split()[0])
 
-#browser.find_element(By.XPATH, "//a[@title='Enter Hours for Hourly Pay for ' + str(firststartday)]").click
+browser.find_element(By.XPATH, f"//a[@title='Enter Hours for Hourly Pay for {FirstStartDay}]").click
 
 
 #timein = browser.find_element("XPATH", "/html/body/div[3]/form/table[2]/tbody/tr[2]/td[1]/input")
