@@ -6,6 +6,65 @@ from selenium.webdriver.support import expected_conditions as expected
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 from datetime import datetime
+import tkinter as tk
+from tkinter import filedialog
+
+# Function that is executed when the Submit button is clicked
+def analyze_data():
+    # Get the values entered in the GUI
+    weekdays_value = weekdays.get()
+    start_time_value = start_time.get()
+    end_time_value = end_time.get()
+    lunch_out_value = lunch_out.get()
+    lunch_in_value = lunch_in.get()
+
+# Initialize the GUI
+root = tk.Tk()
+root.title("Pima College Time Sheet")
+
+# Define variables
+weekdays = tk.StringVar()
+start_time = tk.StringVar()
+end_time = tk.StringVar()
+lunch_out = tk.StringVar()
+lunch_in = tk.StringVar()
+
+# Label and Entry for the weekdays entry
+weekdays_label = tk.Label(root, text="Weekdays (comma separated):")
+weekdays_label.grid(row=0, column=0, padx=5, pady=5)
+weekdays_entry = tk.Entry(root, textvariable=weekdays)
+weekdays_entry.grid(row=0, column=1, padx=5, pady=5)
+
+# Label and Entry for the start date entry
+start_time_label = tk.Label(root, text="Start time:")
+start_time_label.grid(row=1, column=0, padx=5, pady=5)
+start_time_entry = tk.Entry(root, textvariable=start_time)
+start_time_entry.grid(row=1, column=1, padx=5, pady=5)
+
+# Label and Entry for the end date entry
+end_time_label = tk.Label(root, text="End Time:")
+end_time_label.grid(row=2, column=0, padx=5, pady=5)
+end_time_entry = tk.Entry(root, textvariable=end_time)
+end_time_entry.grid(row=2, column=1, padx=5, pady=5)
+
+# Label and Entry for the lunch out entry
+lunch_out_label = tk.Label(root, text="Lunch Out:")
+lunch_out_label.grid(row=3, column=0, padx=5, pady=5)
+lunch_out_entry = tk.Entry(root, textvariable=lunch_out)
+lunch_out_entry.grid(row=3, column=1, padx=5, pady=5)
+
+# Label and Entry for the lunch in entry
+lunch_in_label = tk.Label(root, text="Lunch In:")
+lunch_in_label.grid(row=4, column=0, padx=5, pady=5)
+lunch_in_entry = tk.Entry(root, textvariable=lunch_in)
+lunch_in_entry.grid(row=4, column=1, padx=5, pady=5)
+
+# Button to initiate the analysis process
+Submit_button = tk.Button(root, text="Submit", command=analyze_data)
+Submit_button.grid(row=5, column=0, columnspan=2, padx=5, pady=10)
+
+# Run the GUI event loop
+root.mainloop()
 
 #Setting up Selenium for Chrome
 browser = webdriver.Chrome("chromedriver")
